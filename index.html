@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deprem Bilgi Servisleri</title>
+<!-- Nayzak Favicon -->
+<link rel="icon" type="image/ico" href="https://nayzak.design/preview/nayzak-saas-templates/sharedassets/favicon.ico">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Nayzak External CSS -->
+<link href="assets/plugins/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css" media="all">
+<link href="assets/css/styles.min.css" rel="stylesheet" type="text/css" media="all">
+<link href="assets/css/reset.min.css" rel="stylesheet" type="text/css" media="all">
+</head>
+<body>
+
+<!-- Nayzak Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-black-10 py-lg-0 py-3">
+  <div class="container-fluid">
+    <a href="#0">
+      <picture>
+        <source media="(min-width:767px)" srcset="logo.svg">
+        <img src="logo.svg" data-src="logo.svg" alt="Nayzak">
+      </picture>
+    </a>
+    <button class="navbar-toggler collapsed border-0 shadow-none ms-md-4 ms-3 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#nayzakNav2" aria-controls="nayzakNav2" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nayzakNav2">
+      <ul class="navbar-nav mx-auto mb-3 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="documentation/snippets/yardimservisleri.html" target="_blank">Yardım Servisleri</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="documentation/snippets/hesaplar.html" target="_blank">Yardım Hesapları</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="documentation/snippets/güvenlibölgeler.html" target="_blank">Güvenli Bölgeler
+          </a>
+        </li> 
+      </ul>
+      <div class="d-flex align-items-center gap-3">
+        <a href="https://www.cimer.gov.tr/" target="_blank" class="btn btn-dark btn-sm rounded-pill">AFAD BİLDİRİM YAP</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Nayzak Page Title -->
+<section class="bg-black-10">
+  <div class="container d-flex justify-content-center text-center">
+    <div class="col-lg-8">
+      <h1 class="h2 mb-md-3 text-dark" data-aos="fade-up" data-aos-delay="50" data-aos-duration="800" >Deprem Bilgi Servisleri</h1>
+      <p class="text-secondary fs-1" data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">Hasta Sorgulama</p>
+    </div>
+  </div>
+</section>
+
+  <div class="tab container">
+    <p class="text-secondary fs-1" data-aos="fade-up" data-aos-delay="100" style="padding-left: 10px;padding-top: 10px; font-weight: 700;" data-aos-duration="800">Şehir Seçiniz (Güncelleme: 08.02.2023 02:05)</p>
+    <button class="tablinks" onclick="openCity(event, 'London')">Adana</button>
+    <button class="tablinks" onclick="openCity(event, 'Paris')">Kayseri</button>
+  </div>
+  
+  <!-- Tab content -->
+  <div id="London" class="tabcontent container">
+    <div class="container">
+      <h3>Adana</h3>
+      <h5 class="card-title fs-1 text-dark">ADANA HASTA BİLGİLERİ</h5>
+  
+      <button id="getlead" style="background-color: #15ACA3;" class="btn btn-light rounded-pill mt-2 mt-md-4" onclick="loadLeads()">BİLGİLERİ GETİR</button>
+      <button id="getlead" style="background-color: #15ACA3;" class="btn btn-light rounded-pill mt-2 mt-md-4" onclick="document.location.reload(true);">SAYFAYI YENİLE</button>
+      <br><br><br>
+        <table class="leadstable" id="myTable">
+            <col width="100">
+            <col width="100">
+            <col width="200">
+            <col width="130">
+            <col width="150">
+            <col width="350">
+            <col width="200">
+    
+            <div class="row">
+              <input id="myInput" class="form-control" type="text" placeholder="Ara..">
+          </div>
+          <br>
+  
+        <thead>
+          <th>NUMARA</th>
+          <th>GİRİŞ TARİHİ</th>
+          <th>HASTANE</th>
+          <th>İSİM</th>
+          <th>Servis Bakım</th>
+          <th>Sevk Geliş</th>
+          <th>Sevk</th>
+        </thead>
+        <tbody id="tdata">
+        </tbody>
+        </table>
+    
+        <script>
+          var leads = [];
+    function loadLeads()
+    {   $.getJSON('data/mersin.json', function (data) {
+           $.each(data.data, function(i, f) {
+              var tblRow = "<tr>" + "<td>" + f.Numara + "</td>" +
+               "<td>" + f.girisTarihi + "</td>" + "<td>" + f.hastane + "</td>" + "<td>" + f.isim + "</td>" + "<td>" + f.servisBakim + "</td>" + "<td>" + f.sevkGelis + "</td>" + "<td>" + f.gelis + "</td>";
+               $(tblRow).appendTo(".leadstable tbody");
+         });
+    
+       });
+      };
+    
+    
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+  
+    function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+  
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+  
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+  
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+     
+        </script>  </div>
+  
+
+<style>
+  table, th, td {
+  border: 1px solid;
+}
+
+table th {
+    background-color: 
+#15ACA3;
+    padding: 15px;
+    color: 
+#fff;
+    font-weight: 600;
+  }
+
+  .tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+</style>
+  </div>
+  <div id="Paris" class="tabcontent container" id="#kayseri"> 
+    <h3>Kayseri</h3>
+    <div class="container">
+      <h5 class="card-title fs-1 text-dark">KAYSERİ HASTA BİLGİLERİ</h5>
+  
+      <button id="getlead" style="background-color: #15ACA3;" class="btn btn-light rounded-pill mt-2 mt-md-4" onclick="loadLeads2()">BİLGİLERİ GETİR</button>
+      <button id="getlead" style="background-color: #15ACA3;" class="btn btn-light rounded-pill mt-2 mt-md-4" onclick="document.location.reload(true);">SAYFAYI YENİLE</button>
+      <br><br><br>
+        <table class="leadstable" id="myTable">
+            <col width="100">
+            <col width="100">
+            <col width="200">
+            <col width="130">
+            <col width="150">
+            <col width="350">
+            <col width="200">
+    
+            <div class="row">
+              <input id="myInput" class="form-control" type="text" placeholder="Ara..">
+          </div>
+          <br>
+  
+        <thead>
+          <th>NUMARA</th>
+          <th>GİRİŞ TARİHİ</th>
+          <th>HASTANE</th>
+          <th>İSİM</th>
+          <th>Tanı  </th>
+          <th>Birim</th>
+          <th>Yatış Yeri</th>
+        </thead>
+        <tbody id="tdata">
+        </tbody>
+        </table>
+    
+        <script>
+          var leads2 = [];
+    function loadLeads2()
+    {   $.getJSON('data/kayseri.json', function (data1) {
+           $.each(data1.data, function(i, f) {
+              var tblRow = "<tr>" + "<td>" + " Güncel veri ile eklenecektir " + "</td>" +
+               "<td>" + f.girisTarihi + "</td>" + "<td>" + " Güncel veri ile eklenecektir " + "</td>" + "<td>" + f.isim + "</td>" + "<td>" + f.tani + "</td>" + "<td>" + f.birim + "</td>" + "<td>" + f.yatisYeri + "</td>";
+               $(tblRow).appendTo(".leadstable tbody");
+         });
+    
+       });
+      };
+    
+    
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+   
+        </script>  </div>
+
+  </div></div>
+
+  
+<section class="py-4 py-md-5" data-aos="fade-up" data-aos-delay="50" data-aos-duration="800">
+  <div class="container py-2 py-md-4 my-xl-2">
+    <div class="card bg-primary border-0 rounded-24 px-4 px-lg-5 pt-5">
+      <div class="pt-lg-2 px-sm-3 px-lg-4 mx-xl-2">
+        <div class="row">
+          <div class="col-lg-7 col-xl-6 d-flex align-items-center">
+            <div class="card-body text-white p-0 pb-4 pb-md-5 mb-lg-2">
+              <h2 class="card-title h4 mb-2 mb-md-3">Eklenmesi İstediğiniz <br class="d-none d-md-block"> Bilgileri Bildirin </h2>
+              <p class="card-text">Bilgi kaynaklarına en hızlı ulaşmanız için oluşturulmuştur eklenmesini istediklerinizi bize bildirin.</p>
+              <a href="mailto:emirsoft34@gmail.com" class="btn btn-light rounded-pill mt-2 mt-md-4" target="_blank">Mail ile Ulaşın</a>
+            </div>
+          </div>
+          <div class="col-lg-5 col-xl-6 d-flex align-items-end justify-content-center justify-content-lg-end">
+            <img src="https://nayzak.design/preview/nayzak-saas-templates/sharedassets/lazy-placeholder.gif" data-src="https://nayzak.design/preview/nayzak-saas-templates/sharedassets/ctamobile-img.png" width="299" height="428" alt="Nayzak">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Nayzak Team -->
+<section class="pt-0 mt-n5">
+  <div class="container">
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-6 col-xl-4">
+        <div class="card shadow rounded-24 px-4 py-4 py-lg-5 border-0 text-center" data-aos="fade-up" data-aos-delay="150" data-aos-duration="800">
+          <div class="py-3 py-lg-0">
+            <div class="card-body px-0 pt-4 pb-0">
+              <span class="link-tik"></span>
+              <h5 class="card-title fs-1 text-dark">AFAD NUMARALARI</h5>
+              <a class="fs-4 d-block pb-2 text-secondary fw-bold">Diyarbakır: 0412 326 1156</a>
+              <a class="fs-4 d-block pb-2 text-secondary fw-bold">Hatay: 0326 112 0000                </a>
+              <a class="fs-4 d-block pb-2 text-secondary fw-bold">Maraş: 0344 221 4991
+              </a>
+              <a class="fs-4 d-block pb-2 text-secondary fw-bold">Antep: 0342 428 1118
+              </a>
+              <a class="fs-4 d-block pb-2 text-secondary fw-bold">Adana: 0322 227 2854
+              </a>
+              <a class="fs-4 d-block pb-2 text-secondary fw-bold">Adıyaman: 0416 216 1231
+              </a>
+              <a class="fs-4 d-block pb-2 text-secondary fw-bold">Urfa: 0414 313 7290
+              </a>
+              <a class="fs-4 d-block pb-2 text-secondary fw-bold">Malatya: 0422 212 8432
+              </a>
+              <a class="fs-4 d-block pb-2 text-secondary fw-bold">Mardin: 0482 212 3740
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  
+
+    
+      <div class="col-md-6 col-xl-4">
+        <div class="card shadow rounded-24 px-4 py-4 py-lg-5 border-0 text-center" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
+          <div class="py-3 py-lg-0">
+            <div class="card-body px-0 pt-4 pb-0">
+              <h5 class="card-title fs-1 text-dark">ÖNEMLİ TWİTTER HESAPLARI</h5>
+              <span>-</span>
+
+              <a class="fs-4 d-block pb-2 text-secondary fw-bold" href="https://twitter.com/AFADBaskanlik"><i class="ti ti-brand-twitter"></i> AFAD BAŞKANLIK</a>
+              <a class="fs-4 d-block pb-2 text-secondary fw-bold" href="https://twitter.com/ahbap_istanbul"><i class="ti ti-brand-twitter"></i> AHBAP</a>
+              <a class="fs-4 d-block pb-2 text-secondary fw-bold" href="https://twitter.com/Kizilay"><i class="ti ti-brand-twitter"></i> KIZILAY</a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-xl-4">
+        <div class="card shadow rounded-24 px-4 py-4 py-lg-5 border-0 text-center" data-aos="fade-up" data-aos-delay="250" data-aos-duration="800">
+          <div class="py-3 py-lg-0">
+            <div class="card-body px-0 pt-4 pb-0">
+              <h5 class="card-title fs-1 text-dark">BİLGİ PAYLAŞIM SİTELERİ</h5>
+              <a class="fs-4 d-block pb-2 text-secondary fw-bold" href="https://depremyardim.com/">Deprem Yardım</a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+</section>
+
+<!-- Nayzak Footer -->
+<footer class="bg-white footer-light pt-md-5 pt-4 mt-md-4">
+  <div class="container pt-md-2">
+    <div class="row row-cols-md-4 row-cols-1 pb-lg-4 mb-lg-2">
+      <div class="col">
+        <h2 class="fs-4 fw-semibold text-secondary data-expendable position-relative mb-0">Deprem Hakkında</h2>
+        <ul class="nav flex-column expend-content">
+          <li class="nav-item"><a href="#0" class="nav-link">Deprem Hakkında İlk Bilgiler</a></li>
+          <li class="nav-item"><a href="#0" class="nav-link">Vefat ve Yaralı Sayıları</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h2 class="fs-4 fw-semibold text-secondary data-expendable position-relative mb-0">Yardım Hesapları</h2>
+        <ul class="nav flex-column expend-content">
+          <li class="nav-item"><a href="#0" class="nav-link">Afad Yardım</a></li>
+          <li class="nav-item"><a href="#0" class="nav-link">Ahbap Yardım</a></li>
+          <li class="nav-item"><a href="#0" class="nav-link">Kızılay Yardım</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center text-secondary py-5 pb-md-5 pb-4">
+      <a href="#0">
+        <img src="https://nayzak.design/preview/nayzak-saas-templates/sharedassets/lazy-placeholder.gif" data-src="logo.svg" alt="Brand" width="150px">
+      </a>
+      <p class="mb-0 fs-6">&copy; <script>document.write(new Date().getFullYear())</script> <a href="mailto:emirsoft34@gmail.com">Mustafa Emir Çebi</a> </p>
+      <ul class="nav socials align-items-center gap-4 d-md-flex d-none mb-0">
+        <li><a href="#0"><i class="ti ti-brand-facebook text-secondary fs-3"></i></a></li>
+        <li><a href="#0"><i class="ti ti-brand-twitter text-secondary fs-3"></i></a></li>
+        <li><a href="#0"><i class="ti ti-brand-youtube text-secondary fs-3"></i></a></li>
+        <li><a href="#0"><i class="ti ti-brand-instagram text-secondary fs-3"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<!-- Nayzak Scripts -->
+<script src="assets/plugins/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="assets/plugins/vanilla-lazyload/lazyload.min.js"></script>
+<script src="assets/plugins/swiper/swiper-bundle.min.js"></script>
+<script src="assets/plugins/aos/aos.min.js"></script>
+<script src="assets/js/custom.js"></script>
+</body>
+</html>
