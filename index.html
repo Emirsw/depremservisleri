@@ -227,7 +227,66 @@ table th {
 
   </div></div>
 
+  <div id="Hatay" class="tabcontent container" id="#kayseri"> 
+    <h3>Hatay</h3>
+    <div class="container">
+      <h5 class="card-title fs-1 text-dark">HATAY HASTA BİLGİLERİ</h5>
   
+      <button id="getlead" style="background-color: #15ACA3;" class="btn btn-light rounded-pill mt-2 mt-md-4" onclick="loadLeads3()">BİLGİLERİ GETİR</button>
+      <button id="getlead" style="background-color: #15ACA3;" class="btn btn-light rounded-pill mt-2 mt-md-4" onclick="document.location.reload(true);">SAYFAYI YENİLE</button>
+      <br><br><br>
+        <table class="leadstable" id="myTable3">
+            <col width="100">
+            <col width="100">
+            <col width="200">
+            <col width="130">
+            <col width="150">
+            <col width="350">
+            <col width="200">
+    
+            <div class="row">
+              <input id="myInput3" class="form-control" type="text" placeholder="Ara..">
+          </div>
+          <br>
+  
+        <thead>
+          <th>NUMARA</th>
+          <th>İSİM</th>
+          <th>YER</th>
+          <th>İSİM</th>
+          <th>YAŞ  </th>
+          <th>Detay</th>
+        </thead>
+        <tbody id="tdata">
+        </tbody>
+        </table>
+    
+        <script>
+          var leads3 = [];
+    function loadLeads3()
+    {   $.getJSON('data/hatay.json', function (data2) {
+           $.each(data2.data, function(i, f) {
+              var tblRow = "<tr>" + "<td>" + f.sira + "</td>" +
+               "<td>" + f.isim + "</td>" + "<td>" + f.yer + "</td>" + "<td>" + f.yas + "</td>" + "<td>" + f.detay + "</td>";
+               $(tblRow).appendTo(".leadstable tbody");
+         });
+    
+       });
+      };
+    
+    
+    $(document).ready(function () {
+        $("#myInput3").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable3 tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+   
+        </script>  </div>
+
+  </div></div>
 
 
  <div class="container">      <p class="mb-0 fs-6">&copy; <script>document.write(new Date().getFullYear())</script> <a href="mailto:emirsoft34@gmail.com">Mustafa Emir Çebi</a> </p>
