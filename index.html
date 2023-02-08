@@ -30,9 +30,9 @@
         <p style="padding-left: 10px;padding-top: 10px; font-weight: 500;" data-aos-duration="800">Farklı bir şehri görüntülemek için sayfayı yenile butonuna tıklayınız</p>
 
     
-  <button class="tablinks" onclick="openCity(event, 'London')">Adana</button>
-    <button class="tablinks" onclick="openCity(event, 'Paris')">Kayseri</button> 
-    <button class="tablinks" onclick="openCity(event, 'Hatay')">Hatay</button> 
+  <button class="tablinks" style="border:solid 1px black;border-radius: 5px;margin: 10px;"  onclick="openCity(event, 'London')">Adana</button>
+    <button class="tablinks" style="border:solid 1px black;border-radius: 5px;margin: 10px;"  onclick="openCity(event, 'Paris')">Kayseri</button> 
+    <button class="tablinks" style="border:solid 1px black;border-radius: 5px;margin: 10px;"  onclick="openCity(event, 'Hatay')">Hatay</button> 
 
   </div>
   
@@ -229,15 +229,16 @@ table th {
 
   </div></div>
 
-  <div id="Hatay" class="tabcontent container" id="#kayseri"> 
-    <h3>Hatay</h3>
-    <div class="container">
-      <h5 class="card-title fs-1 text-dark">HATAY HASTA BİLGİLERİ</h5>
   
-      <button id="getlead" style="background-color: #15ACA3;" class="btn btn-light rounded-pill mt-2 mt-md-4" onclick="loadLeads3()">BİLGİLERİ GETİR</button>
+  <div id="Paris" class="tabcontent container" id="#kayseri"> 
+    <h3>Kayseri</h3>
+    <div class="container">
+      <h5 class="card-title fs-1 text-dark">KAYSERİ HASTA BİLGİLERİ</h5>
+  
+      <button id="getlead" style="background-color: #15ACA3;" class="btn btn-light rounded-pill mt-2 mt-md-4" onclick="loadLeads2()">BİLGİLERİ GETİR</button>
       <button id="getlead" style="background-color: #15ACA3;" class="btn btn-light rounded-pill mt-2 mt-md-4" onclick="document.location.reload(true);">SAYFAYI YENİLE</button>
       <br><br><br>
-        <table class="leadstable" id="myTable3">
+        <table class="leadstable" id="myTable">
             <col width="100">
             <col width="100">
             <col width="200">
@@ -247,29 +248,30 @@ table th {
             <col width="200">
     
             <div class="row">
-              <input id="myInput3" class="form-control" type="text" placeholder="Ara..">
+              <input id="myInput" class="form-control" type="text" placeholder="Ara..">
           </div>
           <br>
   
         <thead>
           <th>NUMARA</th>
+          <th>GİRİŞ TARİHİ</th>
+          <th>HASTANE</th>
           <th>İSİM</th>
-          <th>YER</th>
-          <th>İSİM</th>
-          <th>YAŞ  </th>
-          <th>Detay</th>
+          <th>Tanı  </th>
+          <th>Birim</th>
+          <th>Yatış Yeri</th>
         </thead>
         <tbody id="tdata">
         </tbody>
         </table>
     
         <script>
-          var leads3 = [];
-    function loadLeads3()
-    {   $.getJSON('data/hatay.json', function (data2) {
-           $.each(data2.data, function(i, f) {
-              var tblRow = "<tr>" + "<td>" + f.sira + "</td>" +
-               "<td>" + f.isim + "</td>" + "<td>" + f.yer + "</td>" + "<td>" + f.yas + "</td>" + "<td>" + f.detay + "</td>";
+          var leads2 = [];
+    function loadLeads2()
+    {   $.getJSON('data/hatay.json', function (data1) {
+           $.each(data1.data, function(i, f) {
+              var tblRow = "<tr>" + "<td>" + " Güncel veri ile eklenecektir " + "</td>" +
+               "<td>" + f.girisTarihi + "</td>" + "<td>" + " Güncel veri ile eklenecektir " + "</td>" + "<td>" + f.isim + "</td>" + "<td>" + f.tani + "</td>" + "<td>" + f.birim + "</td>" + "<td>" + f.yatisYeri + "</td>";
                $(tblRow).appendTo(".leadstable tbody");
          });
     
@@ -278,9 +280,9 @@ table th {
     
     
     $(document).ready(function () {
-        $("#myInput3").on("keyup", function () {
+        $("#myInput").on("keyup", function () {
             var value = $(this).val().toLowerCase();
-            $("#myTable3 tr").filter(function () {
+            $("#myTable tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
@@ -289,7 +291,6 @@ table th {
         </script>  </div>
 
   </div></div>
-
 
  <div class="container">      <p class="mb-0 fs-6">&copy; <script>document.write(new Date().getFullYear())</script> <a href="mailto:emirsoft34@gmail.com">Mustafa Emir Çebi</a> </p>
 </div>
