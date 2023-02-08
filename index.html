@@ -314,10 +314,13 @@ table th {
   
         <thead>
           <th>NUMARA</th>
-          <th>İSİM</th>
-          <th>YER</th>
-          <th>YAŞ</th>
-          <th>DETAY  </th>
+          <th>HASTANE</th>
+          <th>AD SOYAD</th>
+          <th>CİNSİYET</th>
+          <th>YAŞ  </th>
+          <th>GELDİĞİ YER  </th>
+          <th>GELİŞ ŞEKLİ  </th>
+          <th>YOĞUN BAKIM</th>
         </thead>
         <tbody id="tdata">
         </tbody>
@@ -328,8 +331,8 @@ table th {
     function loadLeads4()
     {   $.getJSON('data/ankara.json', function (data3) {
            $.each(data3.data, function(i, f) {
-              var tblRow = "<tr>" + "<td>" + f.sira + "</td>" +
-               "<td>" + f.isim + "</td>" + "<td>" + f.yer + "</td>" + "<td>" + f.yas + "</td>" + "<td>" + f.detay + "</td>";
+              var tblRow = "<tr>" + "<td>" + f.sira-no + "</td>" +
+               "<td>" + f.hastane + "</td>" + "<td>" + f.adi-soyadi + "</td>" + "<td>" + f.cinsiyet + "</td>" + "<td>" + f.yas + "</td>" + "<td>" + f.geldigi-yer + "</td>" + "<td>" + f.gelis-sekli + "</td>" + "<td>" + f.yogun-bakim + "</td>" ;
                $(tblRow).appendTo(".leadstable tbody");
          });
     
