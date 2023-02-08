@@ -328,8 +328,8 @@ table th {
     function loadLeads4()
     {   $.getJSON('data/ankara.json', function (data3) {
            $.each(data3.data, function(i, f) {
-              var tblRow = "<tr>" + "<td>" + f.sira + "</td>" +
-               "<td>" + f.hastane + "</td>" + "<td>" + f.yer + "</td>" + "<td>" + f.yas + "</td>" + "<td>" + f.detay + "</td>";
+              var tblRow = "<tr>" + "<td>" + f.siraNO + "</td>" +
+               "<td>" + f.hastane + "</td>" + "<td>" + f.adSoyad + "</td>" + "<td>" + f.cinsiyet + "</td>" + "<td>" + f.yas + "</td>";
                $(tblRow).appendTo(".leadstable tbody");
          });
     
