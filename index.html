@@ -33,6 +33,7 @@
   <button class="tablinks" style="border:solid 1px black;border-radius: 5px;margin: 10px;"  onclick="openCity(event, 'London')">Adana</button>
     <button class="tablinks" style="border:solid 1px black;border-radius: 5px;margin: 10px;"  onclick="openCity(event, 'Paris')">Kayseri</button> 
     <button class="tablinks" style="border:solid 1px black;border-radius: 5px;margin: 10px;"  onclick="openCity(event, 'Hatay')">Hatay</button> 
+    <button class="tablinks" style="border:solid 1px black;border-radius: 5px;margin: 10px;"  onclick="openCity(event, 'Ankara')">Ankara</button> 
 
   </div>
   
@@ -289,6 +290,65 @@ table th {
 
   </div></div>
 
+  <div id="Ankara" class="tabcontent container" id="#ankara"> 
+    <h3>Ankara</h3>
+    <div class="container">
+      <h5 class="card-title fs-1 text-dark">ANKARA HASTA BİLGİLERİ</h5>
+  
+      <button id="getlead" style="background-color: #15ACA3;" class="btn btn-light rounded-pill mt-2 mt-md-4" onclick="loadLeads3()">BİLGİLERİ GETİR</button>
+      <button id="getlead" style="background-color: #15ACA3;" class="btn btn-light rounded-pill mt-2 mt-md-4" onclick="document.location.reload(true);">SAYFAYI YENİLE</button>
+      <br><br><br>
+        <table class="leadstable" id="myTable4">
+            <col width="100">
+            <col width="100">
+            <col width="200">
+            <col width="130">
+            <col width="150">
+            <col width="350">
+            <col width="200">
+    
+            <div class="row">
+              <input id="myInput4" class="form-control" type="text" placeholder="Ara..">
+          </div>
+          <br>
+  
+        <thead>
+          <th>NUMARA</th>
+          <th>İSİM</th>
+          <th>YER</th>
+          <th>YAŞ</th>
+          <th>DETAY  </th>
+        </thead>
+        <tbody id="tdata">
+        </tbody>
+        </table>
+    
+        <script>
+          var leads4 = [];
+    function loadLeads4()
+    {   $.getJSON('data/ankara.json', function (data3) {
+           $.each(data3.data, function(i, f) {
+              var tblRow = "<tr>" + "<td>" + f.sira + "</td>" +
+               "<td>" + f.isim + "</td>" + "<td>" + f.yer + "</td>" + "<td>" + f.yas + "</td>" + "<td>" + f.detay + "</td>";
+               $(tblRow).appendTo(".leadstable tbody");
+         });
+    
+       });
+      };
+    
+    
+    $(document).ready(function () {
+        $("#myInput4").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable4 tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+   
+        </script>  </div>
+
+  </div></div>
 
  <div class="container">      <p class="mb-0 fs-6">&copy; <script>document.write(new Date().getFullYear())</script> <a href="mailto:emirsoft34@gmail.com">Mustafa Emir Çebi</a> </p>
 </div>
